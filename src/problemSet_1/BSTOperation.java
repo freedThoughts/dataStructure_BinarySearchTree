@@ -263,11 +263,37 @@ public class BSTOperation implements IBSTOperation{
 		return rootNode;
 	}
 
+	// Time complexity -- O(n)
+	// Space complexity -- O(1)
+	@Override
+	public void printAllElementsInBSTBetweenK1andK2(BinaryTreeNode<Integer> node, int k1, int k2) {
+		if (node == null) return;
+		if (node.data == k1 || node.data == k2) {
+			System.out.print(node.data + " ");
+			return;
+		}
+		if (node.data >= k1 && node.data <= k2) {
+			printAllElementsInBSTBetweenK1andK2(node.leftNode, k1, k2);
+			System.out.print(node.data + " ");
+			printAllElementsInBSTBetweenK1andK2(node.rightNode, k1, k2);
+			return;
+		}
+		if (node.data <= k1) {
+			printAllElementsInBSTBetweenK1andK2(node.rightNode, k1, k2);
+			return;
+		}
+		if (node.data >= k2) {
+			printAllElementsInBSTBetweenK1andK2(node.leftNode, k1, k2);
+			return;
+		}
+	}
+
 
 	public static void main(String[] args) {
 		BSTOperation obj = new BSTOperation();
 		BinaryTreeNode<Integer> root = obj.createBST();
-		BinaryTreeNode<Integer> node = obj.arrayToBST2(new int[] {1, 2, 3, 4, 5, 6, 7}, 0, 6);
+		obj.printAllElementsInBSTBetweenK1andK2(root, 37, 87);
+		//BinaryTreeNode<Integer> node = obj.arrayToBST2(new int[] {1, 2, 3, 4, 5, 6, 7}, 0, 6);
 		System.out.println();
 		//System.out.println(obj.findKthSmallestElementInBST(root, 4).data);
 	}
