@@ -233,11 +233,35 @@ public class BSTOperation implements IBSTOperation{
 				arrayToBST2(arr, startIndex, midIndex -1), arrayToBST2(arr, midIndex +1, endIndex));
 	}
 
-	public BinaryTreeNode<Integer> SLL_To_BST(BinaryTreeNode<Integer> root) {
-
+	// Time Complexity -- O(2n) ~~ O(n) ~~ One n for calculating length, One n for processing the logic
+	// Space Complexity -- O(1) ~~ no temporary space required. Here, we are creating new Tree which will take space equals to LinkedList.
+	@Override
+	public BinaryTreeNode<Integer> sortedSLL_To_BST(BinaryTreeNode<Integer> root) {
+		int length = 0;
+		BinaryTreeNode<Integer> node = root;
+		while (node != null) {
+			length++;
+			// node.rightNode -- is same as node.getNext() for LinkedList
+			node = node.rightNode;
+		}
+		return SLL_To_BST(root, 0, length-1);
 	}
 
-	private BinaryTreeNode<Integer> SLL_To_BST(BinaryTreeNode<Integer> node, int startIndex)
+	private BinaryTreeNode<Integer> SLL_To_BST(BinaryTreeNode<Integer> node, int startIndex, int endIndex) {
+		// This is just act as a counter which tells how many sub-tree will be created under the root node
+		if (endIndex < startIndex) return null;
+		int midIndex = startIndex + (endIndex - startIndex)/2;
+		if ((endIndex - startIndex) % 2 != 0) midIndex++;
+		// We are creating new node with given data. First left subTree will be created and then root node.
+		// At each step of creation, node is pushed to next node and reference of node would be changed at each step. So, we are traversing through Linked List.
+		BinaryTreeNode<Integer> rootNode =  new BinaryTreeNode<>(node.data,
+				SLL_To_BST(node, startIndex, midIndex-1), null);
+		// node.rightNode -- is same as node.getNext() for LinkedList
+		node = node.rightNode;
+		// Right node is created after left and root node
+		rootNode.rightNode = SLL_To_BST(node, midIndex +1, endIndex);
+		return rootNode;
+	}
 
 
 	public static void main(String[] args) {

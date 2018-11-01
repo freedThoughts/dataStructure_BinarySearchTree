@@ -14,4 +14,5 @@ public interface IBSTOperation {
 	BinaryTreeNode<Integer> arrayToBST(BinaryTreeNode<Integer>[] arr);
 	BinaryTreeNode<Integer> arrayToBST2(int[] arr, int startIndex, int endIndex);
 	BinaryTreeNode<Integer> sortedDLL_To_BST(BinaryTreeNode<Integer> root);
+	BinaryTreeNode<Integer> sortedSLL_To_BST(BinaryTreeNode<Integer> root);
 }
