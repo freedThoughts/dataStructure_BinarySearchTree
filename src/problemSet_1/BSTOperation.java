@@ -114,7 +114,7 @@ public class BSTOperation implements IBSTOperation{
 				maxNodeOnLeft = maxNodeOnLeft.rightNode;
 			node.data = maxNodeOnLeft.data;    // Swap with node.data with node having maximum value on left sub-tree.
 			// As maxNodeOnLeft data is contained by node after swapping, we will delete the maxNodeOnLeft data hereon
-			deletingAnElement(maxNodeOnLeft, maxNodeOnLeft.data);
+			node.leftNode = deletingAnElement(maxNodeOnLeft, maxNodeOnLeft.data);
 			return node;
 		}
 
